@@ -6,7 +6,7 @@ TIMESTAMP=`date "+%Y-%m-%d-%H:%M:%S"`
 DIR_ENV_SETTING=${HOME}/.env_setting
 DIR_ENV_SETTING_BAK=${HOME}/.env_setting_bak-${TIMESTAMP}
 
-all:backup bashrc zshrc screenrc 
+all:backup bashrc zshrc screenrc tmux
 	@echo "--Install success!!--"
 
 shell: bashrc zshrc
@@ -24,6 +24,9 @@ base_shell_env:
 
 screenrc:
 	cat _screenrc > ${HOME}/.screenrc
+
+tmux:
+	cat _tmux.conf > ${HOME}/.tmux.conf
 
 version_control_env:hgrc gitconfig
 	@echo "-- Setup version control env --"
