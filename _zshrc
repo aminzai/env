@@ -173,12 +173,12 @@ else
     echo "Can't load _env.sh \nPlease fix it ( ~/.env_setting/_env.sh )"
 fi
 
-if [ -s ${HOME}/.env_setting/incr-0.2.zsh ];
-then
-    source ${HOME}/.env_setting/incr-0.2.zsh
-else
-    echo "Can't load incr.sh \nPlease fix it ( ~/.env_setting/incr.sh )"
-fi
+#if [ -s ${HOME}/.env_setting/incr-0.2.zsh ];
+#then
+#    source ${HOME}/.env_setting/incr-0.2.zsh
+#else
+#    echo "Can't load incr.sh \nPlease fix it ( ~/.env_setting/incr.sh )"
+#fi
 
 
 #--------------------------------------------------
