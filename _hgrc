@@ -4,7 +4,7 @@ editor = vim
 
 [extensions]
 hgext.graphlog = 
-hggit =
+#hggit =
 shelve=
 hgext.extdiff =
 graphlog =
@@ -48,8 +48,10 @@ cmd.vimdiff =
 [alias]
 vi  = vimdiff
 vim = vimdiff
-slog = log --style=/home/aminzai/.env_setting/map-cmdline.slog
-lg = glog --style=/home/aminzai/.env_setting/map-cmdline.sglog
+slog = log --style=$HOME/.env/hg/map-cmdline.slog
+nlog = log --style=$HOME/.env/hg/map-cmdline.nlog
+sglog = glog --style=$HOME/.env/hg/map-cmdline.sglog
+lg=sglog
 
 [defaults]
 glog = --template 'changeset:   {rev}:{node|short} {tags}\nsummary:     {desc|firstline|fill68|tabindent|tabindent}\n\n'
