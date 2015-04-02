@@ -23,6 +23,7 @@ alias la='ls -A'
 alias l='ls -aCF'
 alias vi='vim'
 alias g='gvim'
+alias icdiff='icdiff --highlight'
 
 # enable color support of ls and also add handy aliases
 # NOTE: MacOSX not support parameter '--color=auto'
