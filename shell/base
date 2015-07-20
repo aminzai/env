@@ -17,6 +17,10 @@ export SVN_EDITOR=vim
 
 export EDITOR=vim
 
+#256 color
+export TERM=xterm-256color
+[ -n "$TMUX" ] && export TERM=screen-256color
+
 #===========================================
 # ALIAS
 #===========================================
@@ -26,6 +30,7 @@ alias l='ls -aCF'
 alias vi='vim'
 alias g='gvim'
 alias icdiff='icdiff --highlight'
+alias tmux='tmux -2'
 
 # enable color support of ls and also add handy aliases
 # NOTE: MacOSX not support parameter '--color=auto'
