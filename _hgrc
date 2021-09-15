@@ -13,6 +13,9 @@ record=
 purge=
 transplant=
 strip=
+rebase=
+progress =
+mq=
 
 [color]
 # valid modes are win32, ansi, auto, off
@@ -56,5 +59,6 @@ lg=sglog
 [defaults]
 glog = --template 'changeset:   {rev}:{node|short} {tags}\nsummary:     {desc|firstline|fill68|tabindent|tabindent}\n\n'
 
+qseries= -v -s
 # suppress noisy extdiff header message
 cdiff = -q
