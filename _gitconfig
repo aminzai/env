@@ -5,9 +5,6 @@
     ignorecase = false
 	preloadindex = true
 	fscache = true
-[user]
-    name = Kang-min Wang (Aminzai)
-    email = lagunawang@gmail.com
 [alias]
     co = checkout
     ci = commit
