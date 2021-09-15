@@ -1,5 +1,8 @@
 [core]
     editor=vim
+    excludesfile = ~/.gitignore
+    autocrlf = false
+    ignorecase = false
 [user]
     name = Kang-min Wang (Aminzai)
     email = lagunawang@gmail.com
@@ -21,3 +24,9 @@
   autosetuprebase = always
 [push]
     default = simple
+[fetch]
+	recurseSubmodules = false
+[pull]
+	rebase = true
+[rebase]
+	autoStash = true
