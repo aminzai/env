@@ -8,12 +8,12 @@
 [alias]
     co = checkout
     ci = commit
-    di = diff
     st = status
     br = branch
     re = remote
     lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
     changelog = log --oneline --no-merges --pretty=format:"%s"
+    brs = for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'
 [color]
     diff = auto
     status = auto
@@ -37,5 +37,3 @@
     smudge = git-lfs smudge -- %f
     process = git-lfs filter-process
     required = true
-[protocol]
-	version = 2
