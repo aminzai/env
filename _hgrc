@@ -1,5 +1,58 @@
 [ui]
-username = Kang-min Wang (Aminzai) <lagunawang@gmail.com>
+username = Aminzai (Kang-min Wang)
+editor = vim
 
 [extensions]
 hgext.graphlog = 
+hggit =
+shelve=
+hgext.extdiff =
+graphlog =
+color =
+record=
+purge=
+transplant=
+strip=
+
+[color]
+# valid modes are win32, ansi, auto, off
+#mode = auto
+#status.modified = magenta bold
+#status.added = green bold
+#status.removed = red bold
+#status.deleted = cyan bold
+#status.unknown = blue bold
+#status.ignored = black bold
+
+# configure colors for each possible hg status
+status.modified = blue bold
+status.added = green bold
+status.removed = red bold
+status.deleted = cyan bold
+status.unknown = magenta bold
+status.ignored = white bold
+# and for hg diff output also
+diff.diffline = bold
+diff.extended = cyan bold
+diff.file_a = red bold
+diff.file_b = green bold
+diff.hunk = magenta
+diff.deleted = red
+diff.inserted = green
+diff.changed = white
+diff.trailingwhitespace = bold red_background
+
+[extdiff]
+cmd.vimdiff =
+
+[alias]
+vi  = vimdiff
+vim = vimdiff
+slog = log --style=/home/aminzai/.env_setting/map-cmdline.slog
+lg = glog --style=/home/aminzai/.env_setting/map-cmdline.sglog
+
+[defaults]
+glog = --template 'changeset:   {rev}:{node|short} {tags}\nsummary:     {desc|firstline|fill68|tabindent|tabindent}\n\n'
+
+# suppress noisy extdiff header message
+cdiff = -q
