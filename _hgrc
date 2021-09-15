@@ -1,0 +1,5 @@
+[ui]
+username = Kang-min Wang (Aminzai) <lagunawang@gmail.com>
+
+[extensions]
+hgext.graphlog = 

@@ -1,0 +1,41 @@
+
+# Don't display the copyright page 
+startup_message off 
+
+# keep scrollback n lines 
+defscrollback 1000 
+
+# tab-completion flash in heading bar 
+vbell off 
+
+#底部狀態顯示
+termcapinfo xterm 'hs:ts=\E]0;:fs=\007:ds=\E]0;bash\007'
+caption always "%{= wk} %{= KY} [%n]%t @ %H %{-} %= %{= KR} %l %{-} | %{= KG} %Y-%m-%d %{-} "
+hardstatus alwayslastline " %-Lw%{= Bw}%n%f %t%{-}%+Lw %=| %0c:%s "
+defhstatus "\005t"
+
+shelltitle "$ |zsh"
+
+# default shell
+shell zsh
+
+# These will let you use  
+bind -c selectHighs 0 select 10 #these three commands are  
+bind -c selectHighs 1 select 11 #added to the command-class 
+bind -c selectHighs 2 select 12 #selectHighs 
+bind -c selectHighs 3 select 13 
+bind -c selectHighs 4 select 14 
+bind -c selectHighs 5 select 15 
+ 
+bind - command -c selectHighs   #bind the hyphen to  
+                                 #command-class selectHighs  
+#set the default encoding
+defencoding utf8
+encoding utf8 utf8
+
+# Setting default start up 
+#screen -t 'Btorrent' 0 rtorrent
+#screen -t 'IRC' 1 irssi
+#screen -t 'HTOP' 2 htop
+#screen -t terminal 3 zsh
+

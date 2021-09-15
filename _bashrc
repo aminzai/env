@@ -1,0 +1,18 @@
+
+# Set my PS
+#PS1="\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]$"
+PS1="\n\e[0;35m[\A]\[\e]0;\u@\h: \w\a\]\[\033[01;32m\][\u@\h]\[\033[00m\]-(\[\033[01;34m\]\w\[\033[00m\])\n\$ "
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color) color_prompt=yes;;
+esac
+
+
+#Env 
+if [ -s ${HOME}/.env_setting/_env.sh ];
+then
+    . ${HOME}/.env_setting/_env.sh
+else
+    echo "Can't load _env.sh \nPlease fix it ( ~/.env_setting/_env.sh )"
+fi
