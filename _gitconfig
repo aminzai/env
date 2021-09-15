@@ -3,6 +3,8 @@
     excludesfile = ~/.gitignore
     autocrlf = false
     ignorecase = false
+	preloadindex = true
+	fscache = true
 [user]
     name = Kang-min Wang (Aminzai)
     email = lagunawang@gmail.com
@@ -14,6 +16,7 @@
     br = branch
     re = remote
     lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+    changelog = log --oneline --no-merges --pretty=format:"%s"
 [color]
     diff = auto
     status = auto
@@ -25,8 +28,15 @@
 [push]
     default = simple
 [fetch]
-	recurseSubmodules = false
+    recurseSubmodules = false
 [pull]
-	rebase = true
+    rebase = true
 [rebase]
-	autoStash = true
+    autoStash = true
+[gc]
+    auto = 256
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
