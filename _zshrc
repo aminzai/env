@@ -159,26 +159,13 @@ zstyle ':completion:*:warnings' format $'\e[01;31m -- No Matches Found --\e[0m'
 #--------------------------------------------------
 #  Extra Setting
 #-------------------------------------------------- 
-#Alias
-#test -s ~/.myENV/_aliases && . ~/.myENV/_aliases || true
-#Export
-#test -s ~/.myENV/_export && . ~/.myENV/_export || true
-#PATH
-#test -s ~/.myENV/_path && . ~/.myENV/_path || true
 
-if [ -s ${HOME}/.env_setting/_env.sh ];
+if [ -s ${HOME}/.env/basic.sh ];
 then
-    source ${HOME}/.env_setting/_env.sh
+    source ${HOME}/.env/basic.sh
 else
-    echo "Can't load _env.sh \nPlease fix it ( ~/.env_setting/_env.sh )"
+    echo "Can't load _env.sh \nPlease fix it ( ~/.env/basic.sh )"
 fi
-
-#if [ -s ${HOME}/.env_setting/incr-0.2.zsh ];
-#then
-#    source ${HOME}/.env_setting/incr-0.2.zsh
-#else
-#    echo "Can't load incr.sh \nPlease fix it ( ~/.env_setting/incr.sh )"
-#fi
 
 
 #--------------------------------------------------
