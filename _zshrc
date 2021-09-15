@@ -160,13 +160,7 @@ zstyle ':completion:*:warnings' format $'\e[01;31m -- No Matches Found --\e[0m'
 #  Extra Setting
 #-------------------------------------------------- 
 
-if [ -s ${HOME}/.env/basic.sh ];
-then
-    source ${HOME}/.env/basic.sh
-else
-    echo "Can't load _env.sh \nPlease fix it ( ~/.env/basic.sh )"
-fi
-
+source ${HOME}/.env/shell/base
 
 #--------------------------------------------------
 #  Prompt Setting
