@@ -33,11 +33,11 @@ case `uname` in
     "FreeBSD")
         alias ls='ls -G'
         ;;
+	"Linux")
+        alias ls='ls --color=auto'
+	;;
     *)
         #eval "`dircolors -b`"
-        #alias ls='ls --color=auto'
-        alias dir='dir --color=auto'
-        alias vdir='vdir --color=auto'
 
         alias grep='grep --color=auto'
         alias fgrep='fgrep --color=auto'
