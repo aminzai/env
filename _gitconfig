@@ -3,13 +3,13 @@
     excludesfile = ~/.gitignore
     autocrlf = false
     ignorecase = false
-	preloadindex = true
-	fscache = true
+    preloadindex = true
+    fscache = true
 [alias]
     co = checkout
     ci = commit
     st = status
-    br = branch
+    br = branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate
     re = remote
     lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
     changelog = log --oneline --no-merges --pretty=format:"%s"
