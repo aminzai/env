@@ -8,6 +8,7 @@
 [alias]
     co = checkout
     ci = commit
+    di = diff
     st = status
     br = branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate
     re = remote
