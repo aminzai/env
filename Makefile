@@ -27,11 +27,15 @@ ifeq ($(OS),ManjaroLinux)
 	git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
 	git config --global interactive.diffFilter "diff-so-fancy --patch"
 else ifeq ($(OS), Ubuntu)
+	# diff-so-fancy
 	sudo add-apt-repository ppa:aos1/diff-so-fancy
 	sudo apt-get update
 	sudo apt-get install -y diff-so-fancy
 	git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
 	git config --global interactive.diffFilter "diff-so-fancy --patch"
+
+	sudo apt install -y exuberant-ctags
+	sudo apt install -y tree
 endif
 else ifeq ($(UNAME),Darwin)
 	brew install diff-so-fancy
