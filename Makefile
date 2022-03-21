@@ -41,6 +41,8 @@ else ifeq ($(UNAME),Darwin)
 	brew install diff-so-fancy
 	git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
 	git config --global interactive.diffFilter "diff-so-fancy --patch"
+	brew install java
+	sudo ln -sfn /opt/homebrew/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
 endif
 
 hg: env
