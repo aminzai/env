@@ -6,3 +6,4 @@ esac
 
 . ${HOME}/.env/shell/base
 . ${HOME}/.env/shell/bash_prompt
+. "$HOME/.cargo/env"

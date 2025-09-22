@@ -20,6 +20,16 @@ screen:
 
 git:
 	ln -sf ${BASEDIR}/_gitconfig ${HOME}/.gitconfig
+	git config --global alias.co checkout
+	git config --global alias.br branch
+	git config --global alias.ci commit
+	git config --global alias.st status
+	git config --global alias.cp cherry-pick
+	git config --global alias.st status
+	git config --global alias.br "branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate"
+	git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+	git config --global alias.changelog "log --oneline --no-merges --pretty=format:'%s'"
+	git config --global alias.brs "for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'"
 ifeq ($(UNAME),Linux)
 ifeq ($(OS),ManjaroLinux)
 	sudo pacman -Sy
@@ -44,6 +54,19 @@ else ifeq ($(UNAME),Darwin)
 	brew install java
 	sudo ln -sfn /opt/homebrew/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
 endif
+
+ai-codex:
+	npm install -g @openai/codex
+
+ai-claude:
+	npm install -g @anthropic-ai/claude-code
+	npm install -g @musistudio/claude-code-router
+	npx claude-code-templates@latest --hook=automation/agents-md-loader --yes
+	npx claude-code-templates@latest --create-agent programming-languages/python-pro --yes
+	npx claude-code-templates@latest --create-agent programming-languages/golang-pro --yes
+
+ai: ai-codex ai-claude
+
 
 hg: env
 	ln -sf ${BASEDIR}/_hgrc ${HOME}/.hgrc
