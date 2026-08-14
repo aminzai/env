@@ -1,0 +1,4 @@
+# Machine-local configuration and credentials
+.env
+shell/private.sh
+_gitconfig.private

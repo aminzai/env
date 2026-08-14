@@ -1,3 +1,10 @@
+# OPENSPEC:START
+# OpenSpec shell completions configuration
+fpath=("/home/aminzai/.zsh/completions" "$HOME/.zfunc" $fpath)
+autoload -Uz compinit
+compinit
+# OPENSPEC:END
+
 #--------------------------------------------------
 #  .zshrc
 #  Configured by Aminzai
@@ -7,16 +14,11 @@
 #--------------------------------------------------
 #  Language Setting
 #-------------------------------------------------- 
-#export LANG=zh_TW.UTF-8
-#export LC_ALL=zh_TW.UTF-8
-export LANGUAGE=en_US.UTF-8
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-export LC_CTYPE=en_US.UTF-8
-LANGUAGE="en_US.UTF-8",
-LC_ALL="en_US.UTF-8",
-LC_CTYPE="en_US.UTF-8",
-LANG="en_US.UTF-8"
+# Ubuntu currently has C.UTF-8 available; en_US.UTF-8 is not generated.
+export LANGUAGE=C.UTF-8
+export LANG=C.UTF-8
+export LC_ALL=C.UTF-8
+export LC_CTYPE=C.UTF-8
 
 #--------------------------------------------------
 #  Colors Assign
@@ -88,9 +90,6 @@ setopt AUTO_LIST
 setopt AUTO_MENU
 #setopt MENU_COMPLETE
 setopt CORRECT
-
-autoload -Uz compinit
-compinit
 
 WORDCHARS='*?_-[]~=&;!#$%^(){}<>'
 
@@ -309,3 +308,30 @@ $PR_CYAN$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT$PR_NO_COLOUR '
 }
 
 setprompt
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Claude Code Templates - Global Agents
+export PATH="/home/aminzai/.claude-code-templates/bin:$PATH"
+
+# bun completions
+[ -s "/home/aminzai/.bun/_bun" ] && source "/home/aminzai/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+
+# Load Angular CLI autocompletion only when Angular CLI is installed.
+if (( $+commands[ng] )); then
+  source <(ng completion script)
+fi
+
+# Pi
+export PATH="/home/aminzai/.local/share/pi-node/node-v22.22.3-linux-x64/bin:$PATH"
+
+# >>> Codex installer >>>
+export PATH="/home/aminzai/.local/bin:$PATH"
+# <<< Codex installer <<<
