@@ -1,26 +1,25 @@
 [core]
-    editor=vim
+    editor=nvim
     excludesfile = ~/.gitignore
     autocrlf = false
     ignorecase = false
     preloadindex = true
     fscache = true
 [alias]
-    co = checkout
-    ci = commit
+	co = checkout
+	cp = cherry-pick
+	ci = commit
     di = diff
-    st = status
-    br = branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate
+	st = status
+	br = branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate
     re = remote
-    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
-    changelog = log --oneline --no-merges --pretty=format:"%s"
-    brs = for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+	changelog = log --oneline --no-merges --pretty=format:'%s'
+	brs = for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'
 [color]
     diff = auto
     status = auto
     branch = auto
-[merge]
-    tool = vimdiff
 [branch]
   autosetuprebase = always
 [push]
@@ -38,3 +37,19 @@
     smudge = git-lfs smudge -- %f
     process = git-lfs filter-process
     required = true
+[init]
+	defaultBranch = main
+[http]
+	sslverify = false
+[include]
+	path = ~/.env/_gitconfig.private
+[commit]
+	template = /home/aminzai/.git-commit-tpl.txt
+[delta]
+	navigate = true
+	light = false
+	side-by-side = true
+[merge]
+	conflictstyle = diff3
+[diff]
+    colorMoved = default
