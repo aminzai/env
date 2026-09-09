@@ -1,4 +1,4 @@
-.PHONY: all migrate zsh bash tmux screen git help links check
+.PHONY: all migrate zsh bash tmux git help links check
 OS=$(shell lsb_release -si)
 VER=$(shell lsb_release -sr)
 UNAME=$(shell uname -s)
@@ -7,7 +7,7 @@ CONFIG_HOME=$(if $(XDG_CONFIG_HOME),$(XDG_CONFIG_HOME),$(HOME)/.config)
 INSTALL_LINK=${BASEDIR}/scripts/install-link
 MIGRATE_CONFIG=${BASEDIR}/scripts/migrate-config
 
-all: migrate zsh bash tmux screen git
+all: migrate zsh bash tmux git
 
 help:
 	@echo "make all    Migrate config and install managed symlinks"
@@ -18,7 +18,7 @@ help:
 links:
 	@for path in \
 		"${HOME}/.bashrc" "${HOME}/.zshrc" "${HOME}/.tmux.conf" \
-		"${HOME}/.screenrc" "${HOME}/.gitconfig"; do \
+		"${HOME}/.gitconfig"; do \
 		if [ -e "$$path" ] || [ -L "$$path" ]; then ls -ld "$$path"; else echo "missing: $$path"; fi; \
 	done
 
@@ -42,9 +42,6 @@ bash:
 
 tmux:
 	@"${INSTALL_LINK}" "${BASEDIR}/_tmux.conf" "${HOME}/.tmux.conf"
-
-screen:
-	@"${INSTALL_LINK}" "${BASEDIR}/_screenrc" "${HOME}/.screenrc"
 
 git:
 	@"${INSTALL_LINK}" "${BASEDIR}/_gitconfig" "${HOME}/.gitconfig"
