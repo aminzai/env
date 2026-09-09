@@ -1,4 +1,4 @@
-.PHONY: all migrate zsh bash tmux screen git hg help links check
+.PHONY: all migrate zsh bash tmux screen git help links check
 OS=$(shell lsb_release -si)
 VER=$(shell lsb_release -sr)
 UNAME=$(shell uname -s)
@@ -7,7 +7,7 @@ CONFIG_HOME=$(if $(XDG_CONFIG_HOME),$(XDG_CONFIG_HOME),$(HOME)/.config)
 INSTALL_LINK=${BASEDIR}/scripts/install-link
 MIGRATE_CONFIG=${BASEDIR}/scripts/migrate-config
 
-all: migrate zsh bash tmux screen git hg
+all: migrate zsh bash tmux screen git
 
 help:
 	@echo "make all    Migrate config and install managed symlinks"
@@ -18,11 +18,7 @@ help:
 links:
 	@for path in \
 		"${HOME}/.bashrc" "${HOME}/.zshrc" "${HOME}/.tmux.conf" \
-		"${HOME}/.screenrc" "${HOME}/.gitconfig" "${HOME}/.hgrc" \
-		"${HOME}/.config/hg/map-cmdline.dlog" \
-		"${HOME}/.config/hg/map-cmdline.nlog" \
-		"${HOME}/.config/hg/map-cmdline.sglog" \
-		"${HOME}/.config/hg/map-cmdline.slog"; do \
+		"${HOME}/.screenrc" "${HOME}/.gitconfig"; do \
 		if [ -e "$$path" ] || [ -L "$$path" ]; then ls -ld "$$path"; else echo "missing: $$path"; fi; \
 	done
 
@@ -31,7 +27,7 @@ check:
 	@zsh -n "${BASEDIR}/_zshrc" "${BASEDIR}/shell/base"
 	@if grep -R -n -E '\$$\{?HOME\}?/\.env|~/\.env' \
 		"${BASEDIR}/_bashrc" "${BASEDIR}/_zshrc" \
-		"${BASEDIR}/_gitconfig" "${BASEDIR}/_hgrc" "${BASEDIR}/shell"; then \
+		"${BASEDIR}/_gitconfig" "${BASEDIR}/shell"; then \
 		echo "error: found a legacy ~/.env dependency" >&2; exit 1; \
 	fi
 
@@ -81,11 +77,3 @@ ai-claude:
 	curl -fsSL https://claude.ai/install.sh | bash
 
 ai: ai-codex ai-claude
-
-
-hg:
-	@"${INSTALL_LINK}" "${BASEDIR}/_hgrc" "${HOME}/.hgrc"
-	@"${INSTALL_LINK}" "${BASEDIR}/hg/map-cmdline.dlog" "${HOME}/.config/hg/map-cmdline.dlog"
-	@"${INSTALL_LINK}" "${BASEDIR}/hg/map-cmdline.nlog" "${HOME}/.config/hg/map-cmdline.nlog"
-	@"${INSTALL_LINK}" "${BASEDIR}/hg/map-cmdline.sglog" "${HOME}/.config/hg/map-cmdline.sglog"
-	@"${INSTALL_LINK}" "${BASEDIR}/hg/map-cmdline.slog" "${HOME}/.config/hg/map-cmdline.slog"

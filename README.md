@@ -6,8 +6,6 @@ targeted symlinks from the home and config directories back to this repository:
 - `~/.bashrc` → `_bashrc`
 - `~/.zshrc` → `_zshrc`
 - `~/.gitconfig` → `_gitconfig`
-- `~/.hgrc` → `_hgrc`
-- `~/.config/hg/map-cmdline.*` → `hg/map-cmdline.*`
 
 The repository itself is deliberately not linked to `~/.env`. That path is
 commonly used for dotenv data and remains available as a normal file or
