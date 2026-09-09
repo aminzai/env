@@ -165,7 +165,8 @@ zstyle ':completion:*:warnings' format $'\e[01;31m -- No Matches Found --\e[0m'
 #  Extra Setting
 #-------------------------------------------------- 
 
-source ${HOME}/.env/shell/base
+typeset -gx DOTFILES_ROOT=${${(%):-%N}:A:h}
+source "$DOTFILES_ROOT/shell/base"
 
 #--------------------------------------------------
 #  Prompt Setting

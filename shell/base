@@ -1,11 +1,18 @@
 
-source ${HOME}/.env/shell/colors
+if [ -z "${DOTFILES_ROOT:-}" ] || [ ! -r "$DOTFILES_ROOT/shell/colors" ]; then
+  echo "error: DOTFILES_ROOT does not point to a readable dotfiles checkout" >&2
+  return 1
+fi
+
+. "$DOTFILES_ROOT/shell/colors"
 
 # Machine-local credentials and overrides. This file is deliberately ignored
-# by Git so the shared shell configuration stays safe to commit.
-if [ -r "${HOME}/.env/shell/private.sh" ]; then
-  . "${HOME}/.env/shell/private.sh"
+# by Git and stored outside the checkout.
+DOTFILES_CONFIG_HOME=${XDG_CONFIG_HOME:-"$HOME/.config"}
+if [ -r "$DOTFILES_CONFIG_HOME/env/private.sh" ]; then
+  . "$DOTFILES_CONFIG_HOME/env/private.sh"
 fi
+unset DOTFILES_CONFIG_HOME
 
 #===========================================
 # PATH

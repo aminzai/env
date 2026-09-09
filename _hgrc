@@ -51,9 +51,9 @@ cmd.vimdiff =
 [alias]
 vi  = vimdiff
 vim = vimdiff
-slog = log --style=$HOME/.env/hg/map-cmdline.slog
-nlog = log --style=$HOME/.env/hg/map-cmdline.nlog
-sglog = glog --style=$HOME/.env/hg/map-cmdline.sglog
+slog = log --style=$HOME/.config/hg/map-cmdline.slog
+nlog = log --style=$HOME/.config/hg/map-cmdline.nlog
+sglog = glog --style=$HOME/.config/hg/map-cmdline.sglog
 lg=sglog
 
 [defaults]

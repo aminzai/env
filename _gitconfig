@@ -42,7 +42,7 @@
 [http]
 	sslverify = false
 [include]
-	path = ~/.env/_gitconfig.private
+	path = ~/.config/git/config.private
 [commit]
 	template = /home/aminzai/.git-commit-tpl.txt
 [delta]

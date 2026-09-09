@@ -1,0 +1,69 @@
+#!/bin/sh
+
+set -eu
+umask 077
+
+if [ "$#" -ne 2 ]; then
+  echo "usage: $0 REPOSITORY XDG_CONFIG_HOME" >&2
+  exit 2
+fi
+
+repo_dir=$(CDPATH= cd "$1" && pwd -P)
+config_home=$2
+
+migrate_private_file() {
+  old_path=$1
+  new_path=$2
+
+  [ -e "$old_path" ] || return 0
+  mkdir -p "$(dirname "$new_path")"
+
+  if [ -L "$new_path" ]; then
+    echo "error: refusing to migrate private config through a symlink: $new_path" >&2
+    return 1
+  fi
+
+  if [ -e "$new_path" ]; then
+    if ! cmp -s "$old_path" "$new_path"; then
+      echo "error: both private config files exist and differ:" >&2
+      echo "  old: $old_path" >&2
+      echo "  new: $new_path" >&2
+      return 1
+    fi
+  else
+    cp "$old_path" "$new_path"
+  fi
+
+  chmod 600 "$new_path"
+  if ! cmp -s "$old_path" "$new_path"; then
+    echo "error: private config verification failed: $new_path" >&2
+    return 1
+  fi
+  rm "$old_path"
+  echo "migrated private config: $new_path"
+}
+
+migrate_private_file "$repo_dir/shell/private.sh" "$config_home/env/private.sh"
+migrate_private_file "$repo_dir/_gitconfig.private" "$HOME/.config/git/config.private"
+
+legacy_path=$HOME/.env
+if [ -L "$legacy_path" ]; then
+  link_value=$(readlink "$legacy_path")
+  case $link_value in
+    /*) resolved_path=$link_value ;;
+    *) resolved_path=$HOME/$link_value ;;
+  esac
+
+  if [ -d "$resolved_path" ]; then
+    resolved_path=$(CDPATH= cd "$resolved_path" && pwd -P)
+  fi
+
+  if [ "$resolved_path" = "$repo_dir" ]; then
+    rm "$legacy_path"
+    echo "removed legacy managed link: $legacy_path"
+  else
+    echo "warning: leaving unrelated symlink unchanged: $legacy_path -> $link_value" >&2
+  fi
+elif [ -e "$legacy_path" ]; then
+  echo "warning: leaving unmanaged path unchanged: $legacy_path" >&2
+fi

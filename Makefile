@@ -1,37 +1,57 @@
-.PHONY: all zsh bash tmux screen git hg env help links check
+.PHONY: all migrate zsh bash tmux screen git hg help links check
 OS=$(shell lsb_release -si)
 VER=$(shell lsb_release -sr)
 UNAME=$(shell uname -s)
 BASEDIR=$(shell pwd)
+CONFIG_HOME=$(if $(XDG_CONFIG_HOME),$(XDG_CONFIG_HOME),$(HOME)/.config)
+INSTALL_LINK=${BASEDIR}/scripts/install-link
+MIGRATE_CONFIG=${BASEDIR}/scripts/migrate-config
 
-all: bash zsh tmux screen git hg env
+all: migrate zsh bash tmux screen git hg
 
 help:
-	@echo "make all    Install all managed dotfile symlinks"
-	@echo "make links  Show the Bash, Zsh, and env symlinks"
+	@echo "make all    Migrate config and install managed symlinks"
+	@echo "make migrate Move private config and remove the managed ~/.env link"
+	@echo "make links  Show managed dotfile symlinks"
 	@echo "make check  Validate shell configuration syntax"
 
 links:
-	@ls -l ${HOME}/.bashrc ${HOME}/.zshrc ${HOME}/.env
+	@for path in \
+		"${HOME}/.bashrc" "${HOME}/.zshrc" "${HOME}/.tmux.conf" \
+		"${HOME}/.screenrc" "${HOME}/.gitconfig" "${HOME}/.hgrc" \
+		"${HOME}/.config/hg/map-cmdline.dlog" \
+		"${HOME}/.config/hg/map-cmdline.nlog" \
+		"${HOME}/.config/hg/map-cmdline.sglog" \
+		"${HOME}/.config/hg/map-cmdline.slog"; do \
+		if [ -e "$$path" ] || [ -L "$$path" ]; then ls -ld "$$path"; else echo "missing: $$path"; fi; \
+	done
 
 check:
-	@bash -n ${BASEDIR}/_bashrc ${BASEDIR}/shell/base
-	@zsh -n ${BASEDIR}/_zshrc ${BASEDIR}/shell/base
+	@bash -n "${BASEDIR}/_bashrc" "${BASEDIR}/shell/base"
+	@zsh -n "${BASEDIR}/_zshrc" "${BASEDIR}/shell/base"
+	@if grep -R -n -E '\$$\{?HOME\}?/\.env|~/\.env' \
+		"${BASEDIR}/_bashrc" "${BASEDIR}/_zshrc" \
+		"${BASEDIR}/_gitconfig" "${BASEDIR}/_hgrc" "${BASEDIR}/shell"; then \
+		echo "error: found a legacy ~/.env dependency" >&2; exit 1; \
+	fi
 
-zsh: env
-	ln -sf ${BASEDIR}/_zshrc ${HOME}/.zshrc
+migrate:
+	@"${MIGRATE_CONFIG}" "${BASEDIR}" "${CONFIG_HOME}"
 
-bash: env
-	ln -sf ${BASEDIR}/_bashrc ${HOME}/.bashrc
+zsh:
+	@"${INSTALL_LINK}" "${BASEDIR}/_zshrc" "${HOME}/.zshrc"
+
+bash:
+	@"${INSTALL_LINK}" "${BASEDIR}/_bashrc" "${HOME}/.bashrc"
 
 tmux:
-	ln -sf ${BASEDIR}/_tmux.conf ${HOME}/.tmux.conf
+	@"${INSTALL_LINK}" "${BASEDIR}/_tmux.conf" "${HOME}/.tmux.conf"
 
 screen:
-	ln -sf ${BASEDIR}/_screenrc ${HOME}/.screenrc
+	@"${INSTALL_LINK}" "${BASEDIR}/_screenrc" "${HOME}/.screenrc"
 
 git:
-	ln -sf ${BASEDIR}/_gitconfig ${HOME}/.gitconfig
+	@"${INSTALL_LINK}" "${BASEDIR}/_gitconfig" "${HOME}/.gitconfig"
 	git config --global alias.co checkout
 	git config --global alias.br branch
 	git config --global alias.ci commit
@@ -63,8 +83,9 @@ ai-claude:
 ai: ai-codex ai-claude
 
 
-hg: env
-	ln -sf ${BASEDIR}/_hgrc ${HOME}/.hgrc
-
-env:
-	ln -sf ${BASEDIR} ${HOME}/.env
+hg:
+	@"${INSTALL_LINK}" "${BASEDIR}/_hgrc" "${HOME}/.hgrc"
+	@"${INSTALL_LINK}" "${BASEDIR}/hg/map-cmdline.dlog" "${HOME}/.config/hg/map-cmdline.dlog"
+	@"${INSTALL_LINK}" "${BASEDIR}/hg/map-cmdline.nlog" "${HOME}/.config/hg/map-cmdline.nlog"
+	@"${INSTALL_LINK}" "${BASEDIR}/hg/map-cmdline.sglog" "${HOME}/.config/hg/map-cmdline.sglog"
+	@"${INSTALL_LINK}" "${BASEDIR}/hg/map-cmdline.slog" "${HOME}/.config/hg/map-cmdline.slog"

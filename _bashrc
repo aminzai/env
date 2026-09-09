@@ -4,6 +4,19 @@ case "$TERM" in
 esac
 
 
-. ${HOME}/.env/shell/base
-. ${HOME}/.env/shell/bash_prompt
+_dotfiles_source=${BASH_SOURCE[0]}
+while [ -L "$_dotfiles_source" ]; do
+  _dotfiles_dir=$(CDPATH= cd "$(dirname "$_dotfiles_source")" && pwd -P) || return
+  _dotfiles_link=$(readlink "$_dotfiles_source") || return
+  case $_dotfiles_link in
+    /*) _dotfiles_source=$_dotfiles_link ;;
+    *) _dotfiles_source=$_dotfiles_dir/$_dotfiles_link ;;
+  esac
+done
+DOTFILES_ROOT=$(CDPATH= cd "$(dirname "$_dotfiles_source")" && pwd -P) || return
+export DOTFILES_ROOT
+unset _dotfiles_source _dotfiles_dir _dotfiles_link
+
+. "$DOTFILES_ROOT/shell/base"
+. "$DOTFILES_ROOT/shell/bash_prompt"
 . "$HOME/.cargo/env"

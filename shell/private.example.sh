@@ -1,5 +1,5 @@
-# Copy this file to shell/private.sh and set permissions to 600.
-# shell/private.sh is intentionally ignored by Git.
+# Copy this file to ${XDG_CONFIG_HOME:-$HOME/.config}/env/private.sh and set
+# its permissions to 600. The private file stays outside the Git checkout.
 #
 # Put machine-specific credentials and settings here, for example:
 # export GITHUB_TOKEN='replace-with-a-token'

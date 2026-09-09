@@ -1,0 +1,50 @@
+#!/bin/sh
+
+set -eu
+
+if [ "$#" -ne 2 ]; then
+  echo "usage: $0 SOURCE TARGET" >&2
+  exit 2
+fi
+
+source_path=$1
+target_path=$2
+
+if [ ! -e "$source_path" ]; then
+  echo "error: link source does not exist: $source_path" >&2
+  exit 1
+fi
+
+source_dir=$(CDPATH= cd "$(dirname "$source_path")" && pwd -P)
+source_path=$source_dir/$(basename "$source_path")
+target_dir=$(dirname "$target_path")
+mkdir -p "$target_dir"
+target_dir=$(CDPATH= cd "$target_dir" && pwd -P)
+target_path=$target_dir/$(basename "$target_path")
+
+if [ -L "$target_path" ]; then
+  link_value=$(readlink "$target_path")
+  case $link_value in
+    /*) current_path=$link_value ;;
+    *) current_path=$target_dir/$link_value ;;
+  esac
+
+  if [ -e "$current_path" ]; then
+    current_dir=$(CDPATH= cd "$(dirname "$current_path")" && pwd -P)
+    current_path=$current_dir/$(basename "$current_path")
+  fi
+
+  if [ "$current_path" = "$source_path" ]; then
+    exit 0
+  fi
+
+  echo "error: refusing to replace unrelated symlink: $target_path -> $link_value" >&2
+  exit 1
+fi
+
+if [ -e "$target_path" ]; then
+  echo "error: refusing to replace existing path: $target_path" >&2
+  exit 1
+fi
+
+ln -s "$source_path" "$target_path"
